@@ -14,9 +14,10 @@ import idu.cs.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 	@Autowired UserRepository repository;
 	@Override
-	public User getUser(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUserById(long id) {
+		UserEntity entity = repository.findById(id);
+		User user = entity.buildDomain();
+		return user;
 	}
 
 	@Override
@@ -71,7 +72,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
+		UserEntity entity = new UserEntity();
+		entity.buildEntity(user);
+		repository.save(entity);
 
 	}
 

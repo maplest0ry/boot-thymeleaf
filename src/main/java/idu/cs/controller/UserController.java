@@ -73,6 +73,13 @@ public class UserController {
 		userService.saveUser(user);		
 		return "redirect:/users"; // get 방식으로 해당 url로 재지정함
 	}
+	@GetMapping("/user-update-form")
+	public String getUpdateForm(Model model, HttpSession session) {
+		// 서비스를 통해 리파지터리로부터 정보를 가져와야 하나 세션에 저장해두었으므로 정보를 활용
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user",user);
+		return "info";
+	}
 	/*
 	@GetMapping("/users/{id}")
 	public String getUserById(@PathVariable(value = "id") Long userId, Model model)
@@ -90,16 +97,21 @@ public class UserController {
 		return "userlist";
 		//return ResponseEntity.ok().body(user);
 	}
+	*/
 	@PutMapping("/users/{id}") // @PatchMapping
-	public String updateUser(@PathVariable(value = "id") Long userId, 
-			@Valid UserEntity userDetails, Model model) {		
-		UserEntity user = userRepo.findById(userId).get(); 
-		// user는 DB로 부터 읽어온 객체
-		user.setName(userDetails.getName()); // userDetails는 전송한 객체
-		user.setCompany(userDetails.getCompany());
-		userRepo.save(user);
+	public String updateUser(@PathVariable(value = "id") Long id, 
+			@Valid User updateUser, Model model) {	
+		/*
+		 * updateUser 객체는 입력 폼 내용 : id 값이 없음
+		 */
+		User user = userService.getUserById(id);
+		user.setUserPw(updateUser.getUserPw());
+		user.setName(updateUser.getName());
+		user.setCompany(updateUser.getCompany());
+		userService.updateUser(user);
 		return "redirect:/users";
 	}
+	/*
 	@DeleteMapping("/users/{id}")
 	public String deleteUser(@PathVariable(value = "id") Long userId, Model model) {		
 		UserEntity user = userRepo.findById(userId).get();

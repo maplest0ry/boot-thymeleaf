@@ -11,7 +11,6 @@ import idu.cs.entity.UserEntity;
 public interface UserRepository 
 	extends JpaRepository<UserEntity, Long> {
 	// findById, save, delete 선언없어도 구현 가능
-	
 	//아래 메소드들은 선언해야 JPA 규칙에 의해 구현됨
 	//find-select문, By-where, OrderBy - order by, ASC와 DESC를 함꼐 사용
 	public List<UserEntity> findByName(String name);
