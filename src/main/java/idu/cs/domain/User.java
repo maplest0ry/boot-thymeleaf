@@ -1,7 +1,7 @@
 package idu.cs.domain;
 
 public class User {
-	private Long id;
+	private Long id; 
 	private String userId;
 	private String userPw;
 	private String name;
