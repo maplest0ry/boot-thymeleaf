@@ -1,5 +1,5 @@
 <!--::header part start::-->
-    <header class="main_menu home_menu">
+    <header class="main_menu">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
@@ -27,7 +27,7 @@
                                     <a class="nav-link" href="/logout">Log-out</a>
                                 </li>
                                 <li class="nav-item" th:if="${session.user}">
-                                    <a class="nav-link" href="/users">Update</a>
+                                    <a class="nav-link" href="/user-update">Update</a>
                                 </li>
                                 <li class="nav-item" th:if="${session.user}">
                                 	<a class="nav-link" th:href="@{/users/{id}(id=${session.user.userId})}">Update2</a>
